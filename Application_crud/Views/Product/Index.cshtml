@@ -1,0 +1,65 @@
+﻿@model PagedList.IPagedList<Application_crud.Models.Product>
+@using PagedList.Mvc;
+@using PagedList;
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>List Of Employee</h2>
+
+<p>
+    @Html.ActionLink("Create New Form", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.First().ProductName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().ProductId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().CategoryId)
+        </th>
+        <td>
+            @Html.DisplayNameFor(model => model.First().CategoryName)
+        </td>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryName)
+            </td>
+
+
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+            </td>
+        </tr>
+    }
+
+</table>
+<div></div>
+Page@(Model.PageCount<Model.PageNumber ? 0: Model.PageNumber)/@Model.PageCount)
+<div>
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page = page }))
+
+    @Html.ActionLink(" Do you Want To Add Category ", "Index", "Category")
+</div>
